@@ -59,13 +59,36 @@ class Vampire {
 
   // Returns the total number of vampires that exist
   get totalDescendents() {
+    let totalDescendents = 0;
+    // console.log("-------vampire ada-----");
+    // console.log(this.offspring);
+    for (let child of this.offspring) {
 
+      totalDescendents = totalDescendents + child.totalDescendents;
+      totalDescendents++;
+    }
+    return totalDescendents;
   }
 
   // Returns an array of all the vampires that were converted after 1980
   get allMillennialVampires() {
+    let result = [];
+    if (this.yearConverted > 1980) {
+      result.push(this);
+    }
 
+    for (let childnode of this.offspring) {
+      const foundVamp = childnode.allMillennialVampires;
+      result = result.concat(foundVamp);
+    }
+    return result;
   }
+
+  // if (child.yearConverted > 1980) {
+  //   result.push(child);
+  // } else {
+  //   child.allMillennialVampires;
+  // }
 
   /** Stretch **/
 
@@ -79,19 +102,20 @@ class Vampire {
   }
 }
 
-const ada = new Vampire("Ada", 1960);
-const craig = new Vampire("Craig", 1965);
-const paul = new Vampire("Paul", 1966);
-const donna = new Vampire("Donna", 1970);
-const maria = new Vampire("Maria", 1965);
+// const ada = new Vampire("Ada", 1960);
+// const craig = new Vampire("Craig", 1965);
+// const paul = new Vampire("Paul", 1981);
+// const donna = new Vampire("Donna", 1990);
+// const maria = new Vampire("Maria", 1982);
 
-ada.addOffspring(craig);
-ada.addOffspring(paul);
-craig.addOffspring(donna);
-paul.addOffspring(maria);
+// ada.addOffspring(craig);
+// ada.addOffspring(paul);
+// craig.addOffspring(donna);
+// paul.addOffspring(maria);
 
 
-console.log(ada.vampireWithName("Maria"));
+// //console.log(ada.vampireWithName("Maria"));
+// console.log(paul.allMillennialVampires);
 
 module.exports = Vampire;
 
