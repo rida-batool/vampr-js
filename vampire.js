@@ -44,17 +44,27 @@ class Vampire {
 
   // Returns the vampire object with that name, or null if no vampire exists with that name
   vampireWithName(name) {
-    
+    //console.log(this);
+    if (this.name === name) {
+      return this;
+    }
+    for (let childnode of this.offspring) {
+      const foundVamp = childnode.vampireWithName(name);
+      if (foundVamp !== null) {
+        return foundVamp;
+      }
+    }
+    return null;
   }
 
   // Returns the total number of vampires that exist
   get totalDescendents() {
-    
+
   }
 
   // Returns an array of all the vampires that were converted after 1980
   get allMillennialVampires() {
-    
+
   }
 
   /** Stretch **/
@@ -68,6 +78,20 @@ class Vampire {
 
   }
 }
+
+const ada = new Vampire("Ada", 1960);
+const craig = new Vampire("Craig", 1965);
+const paul = new Vampire("Paul", 1966);
+const donna = new Vampire("Donna", 1970);
+const maria = new Vampire("Maria", 1965);
+
+ada.addOffspring(craig);
+ada.addOffspring(paul);
+craig.addOffspring(donna);
+paul.addOffspring(maria);
+
+
+console.log(ada.vampireWithName("Maria"));
 
 module.exports = Vampire;
 
